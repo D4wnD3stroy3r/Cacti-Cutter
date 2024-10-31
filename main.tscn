@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6yo7gacd6ysy"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_2a37j"]
+[ext_resource type="PackedScene" uid="uid://cm0f4n4y5u2mc" path="res://cactus_target.tscn" id="2_yjw8l"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_2a37j")
+
+[node name="CactusTarget" parent="." instance=ExtResource("2_yjw8l")]
+
+[connection signal="mouse_exited" from="CactusTarget" to="." method="_on_cactus_target_mouse_exited"]

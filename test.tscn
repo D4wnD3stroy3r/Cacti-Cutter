@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwn76ulitdy6s"]
+
+[ext_resource type="Texture2D" path="res://Cactus01.png" id="2_fygqf"]
+
+[sub_resource type="GDScript" id="GDScript_x3his"]
+script/source = "extends RigidBody2D
+
+signal mouse_exit
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+
+func _on_mouse_exited():
+	mouse_exit.emit
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6khv4"]
+radius = 96.0
+height = 208.0
+
+[node name="CactusTarget" type="Area2D"]
+script = SubResource("GDScript_x3his")
+
+[node name="Cactus01" type="Sprite2D" parent="."]
+position = Vector2(576, 320)
+scale = Vector2(0.981132, 1)
+texture = ExtResource("2_fygqf")
+region_enabled = true
+region_rect = Rect2(148.619, 184.459, 212.819, 192.066)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(576, 320)
+shape = SubResource("CapsuleShape2D_6khv4")
+
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
