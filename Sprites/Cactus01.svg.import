@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkqwnfph2nflq"
-path="res://.godot/imported/test particle.png-e65d9f7326173e838bfb247d3f8c39f0.ctex"
+uid="uid://dlm26r6y188s6"
+path="res://.godot/imported/Cactus01.svg-c7daf9c63a1a3e1cb207da89a1611266.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/test particle.png"
-dest_files=["res://.godot/imported/test particle.png-e65d9f7326173e838bfb247d3f8c39f0.ctex"]
+source_file="res://Sprites/Cactus01.svg"
+dest_files=["res://.godot/imported/Cactus01.svg-c7daf9c63a1a3e1cb207da89a1611266.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
