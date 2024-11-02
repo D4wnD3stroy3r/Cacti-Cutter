@@ -31,16 +31,17 @@ func _on_cactus_target_mouse_exited():
 	var particle = cut_particle.instantiate()
 	
 	# Set the spawn position of the particle to the mouse position when the mouse exists the collision box
-	var mouse_position_on_exit = get_viewport().get_mouse_position()
-	particle.position = mouse_position_on_exit
+	particle.position = $CactusTarget/Sprite2D.position
 	
 	# Set the rotation of the spawned particle to the angle of the mouse when it exists the collision box
+	var mouse_position_on_exit = get_viewport().get_mouse_position()
 	var particle_angle = mouse_position_stack[0].angle_to_point(mouse_position_on_exit)
 	particle.rotation = particle_angle
 	
 	# Set the velocity of the particle
-	var velocity = Vector2(200,0)
+	var velocity = Vector2(400,0)
 	particle.linear_velocity = velocity.rotated(particle_angle)
 	
 	# Spawn the particle
 	add_child(particle)
+	

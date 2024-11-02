@@ -8,6 +8,11 @@ height = 128.0
 
 [node name="CactusTarget" type="Area2D"]
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 320)
+scale = Vector2(2.1, 2.15714)
+texture = ExtResource("1_8ll66")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(576, 336)
 shape = SubResource("CapsuleShape2D_dcv68")
@@ -19,8 +24,3 @@ offset_right = 600.0
 offset_bottom = 215.0
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(576, 320)
-scale = Vector2(2.1, 2.15714)
-texture = ExtResource("1_8ll66")
