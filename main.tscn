@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5j6xk1vo7arq"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_2a37j"]
+[ext_resource type="PackedScene" uid="uid://bfn8or1hvnhwk" path="res://cactus_target.tscn" id="2_yjw8l"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_2a37j")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 322.75)
+scale = Vector2(1.44, 1.22045)
+
+[node name="CactusTarget" parent="." instance=ExtResource("2_yjw8l")]
+
+[connection signal="mouse_exited" from="CactusTarget" to="." method="_on_cactus_target_mouse_exited"]
