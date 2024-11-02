@@ -1,17 +1,20 @@
 extends Node
 
+# Global score variable
 @export var score = 0
 var cut_particle = load("res://cut_particle.tscn")
 var mouse_position_stack = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Initiate ScoreBox value
 	$CactusTarget/ScoreBox.text = str(score)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	# Update ScoreBox value every frame
+	$CactusTarget/ScoreBox.text = str(score)
 
 # Fills the mouse_position_stack array with the last 5 points the mouse has traveled
 func _input(event):
@@ -23,25 +26,19 @@ func _input(event):
 				#print(mouse_position_stack)
 
 func _on_cactus_target_mouse_exited():
-	# Add score and update score in ScoreBox
+	# Add score
 	score += 1
-	$CactusTarget/ScoreBox.text = str(score)
 	
 	# Create a new instance of the cut_particle scene
 	var particle = cut_particle.instantiate()
 	
-	# Set the spawn position of the particle to the mouse position when the mouse exists the collision box
+	# Set the spawn position of the particle to the center of the sprite
 	particle.position = $CactusTarget/Sprite2D.position
 	
-	# Set the rotation of the spawned particle to the angle of the mouse when it exists the collision box
-	var mouse_position_on_exit = get_viewport().get_mouse_position()
-	var particle_angle = mouse_position_stack[0].angle_to_point(mouse_position_on_exit)
-	particle.rotation = particle_angle
-	
-	# Set the velocity of the particle
-	var velocity = Vector2(400,0)
-	particle.linear_velocity = velocity.rotated(particle_angle)
+	# Set the speed and direction of the particle
+	var speed = 600
+	var direction = Vector2(mouse_position_stack[0].direction_to(mouse_position_stack[4]))
+	particle.linear_velocity = direction * speed
 	
 	# Spawn the particle
 	add_child(particle)
-	

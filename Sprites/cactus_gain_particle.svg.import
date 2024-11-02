@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfxwrdhr4ce1u"
-path="res://.godot/imported/test particle.svg-d161bd55719f48dc554d59568499f03f.ctex"
+uid="uid://cfcnviet8lxir"
+path="res://.godot/imported/cactus_gain_particle.svg-da34ca0ac4fbea5976527cc4552d9dc0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/test particle.svg"
-dest_files=["res://.godot/imported/test particle.svg-d161bd55719f48dc554d59568499f03f.ctex"]
+source_file="res://Sprites/cactus_gain_particle.svg"
+dest_files=["res://.godot/imported/cactus_gain_particle.svg-da34ca0ac4fbea5976527cc4552d9dc0.ctex"]
 
 [params]
 
