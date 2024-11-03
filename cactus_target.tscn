@@ -1,20 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://bfn8or1hvnhwk"]
 
-[ext_resource type="Texture2D" uid="uid://bv3kxp3k87jf6" path="res://art/Cactus01.svg" id="1_8ll66"]
+[ext_resource type="Texture2D" uid="uid://dlm26r6y188s6" path="res://Sprites/Cactus01.svg" id="1_rex54"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dcv68"]
-radius = 56.0
-height = 128.0
+radius = 136.0
+height = 288.0
 
 [node name="CactusTarget" type="Area2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(576, 320)
-scale = Vector2(2.1, 2.15714)
-texture = ExtResource("1_8ll66")
+scale = Vector2(5.21, 5.351)
+texture = ExtResource("1_rex54")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(576, 336)
+position = Vector2(576, 360)
 shape = SubResource("CapsuleShape2D_dcv68")
 
 [node name="ScoreBox" type="Label" parent="."]

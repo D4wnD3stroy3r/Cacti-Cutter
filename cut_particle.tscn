@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cah28bya451lu"]
 
 [ext_resource type="Script" path="res://cut_particle.gd" id="1_50nx1"]
-[ext_resource type="Texture2D" uid="uid://dfxwrdhr4ce1u" path="res://art/test particle.svg" id="2_h6bf2"]
+[ext_resource type="Texture2D" uid="uid://cfcnviet8lxir" path="res://Sprites/cactus_gain_particle.svg" id="2_1aybv"]
 
 [node name="CutParticle" type="RigidBody2D"]
 script = ExtResource("1_50nx1")
@@ -11,6 +11,11 @@ script = ExtResource("1_50nx1")
 [node name="Particle" type="Sprite2D" parent="."]
 position = Vector2(4, 4)
 scale = Vector2(4, 4)
-texture = ExtResource("2_h6bf2")
+texture = ExtResource("2_1aybv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
 
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
