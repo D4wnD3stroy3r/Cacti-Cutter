@@ -3,7 +3,7 @@ extends Node
 var cut_particle = load("res://cut_particle.tscn")
 var mouse_position_stack = []
 var saveData = SaveData.new()
-var save_file = "res://save.tres"
+var save_file = "user://save.tres"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
