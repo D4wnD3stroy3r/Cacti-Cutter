@@ -46,6 +46,9 @@ func _on_cactus_target_mouse_exited():
 	
 	# Spawn the particle
 	add_child(particle)
+	
+	# Change cactus_target sprite2d
+	$CactusTarget/Sprite2D.texture = load("res://Sprites/Cactus0%s.svg" % str(randi_range(1, 5)))
 
 
 func _on_save_game_pressed() -> void:
