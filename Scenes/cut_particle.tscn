@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cah28bya451lu"]
 
-[ext_resource type="Script" path="res://cut_particle.gd" id="1_50nx1"]
+[ext_resource type="Script" path="res://Scenes/cut_particle.gd" id="1_50nx1"]
 [ext_resource type="Texture2D" uid="uid://cfcnviet8lxir" path="res://Sprites/cactus_gain_particle.svg" id="2_1aybv"]
 
 [node name="CutParticle" type="RigidBody2D"]
