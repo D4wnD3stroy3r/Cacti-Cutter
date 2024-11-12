@@ -19,6 +19,11 @@ config/icon="res://Sprites/Cactus01.svg"
 
 version_control/autoload_on_startup=true
 
+[global_group]
+
+Persist=""
+passive_income=""
+
 [rendering]
 
 renderer/rendering_method="mobile"
