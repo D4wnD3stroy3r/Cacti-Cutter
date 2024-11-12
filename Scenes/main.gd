@@ -1,74 +1,62 @@
 extends Node
 
-var cut_particle = load("res://Scenes/cut_particle.tscn")
-var mouse_position_stack : Array
-var mouse_velocity : Vector2
-var saveData = SaveData.new()
-var save_file = "user://save.tres" # %appdata%\Roaming\Godot\app_userdata\Cacti Cutter\save.tres
+var save_path = "user://savegame.json" # %appdata%\Roaming\Godot\app_userdata\Cacti Cutter\savegame.json
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Initiate ScoreBox value
-	$CactusTarget/ScoreBox.text = str(saveData.score)
-	if FileAccess.file_exists(save_file):
+	if FileAccess.file_exists(save_path):
 		load_game()
-	$SaveTimer.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	# Update ScoreBox value every frame
-	$CactusTarget/ScoreBox.text = str(saveData.score)
-
-
-# Fills the mouse_position_stack array with the last 5 points the mouse has traveled
-func _input(event):
-	if event is InputEventMouseMotion:
-		if event.relative:
-			mouse_position_stack.append(get_viewport().get_mouse_position())
-			if mouse_position_stack.size() > 5:
-				mouse_position_stack.remove_at(0)
-
-
-
-func _on_cactus_target_mouse_exited():
-	# Add score
-	saveData.increase_score(1)
-	
-	# Create a new instance of the cut_particle scene
-	var particle = cut_particle.instantiate()
-	
-	# Set the spawn position of the particle to the center of the sprite
-	particle.position = $CactusTarget/Sprite2D.position
-	
-	# Set the speed and direction of the particle
-	var speed = 600
-	var direction = Vector2(mouse_position_stack[0].direction_to(mouse_position_stack[4]))
-	particle.linear_velocity = direction * speed * randf_range(.5, 1.5)
-	
-	# Spawn the particle
-	add_child(particle)
-	
-	# Change cactus_target sprite2d
-	$CactusTarget/Sprite2D.texture = load("res://Sprites/Cactus0%s.svg" % str(randi_range(1, 5)))
-
-
+	pass
 
 
 # Saves the variables in save_data.gd to a save file
 func save_game():
-	ResourceSaver.save(saveData, save_file)
+	var save_file = FileAccess.open("user://savegame.json", FileAccess.WRITE)
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	for node in save_nodes:
+		if !node.has_method("save"):
+			print("persistent node '%s' is missing a save() function, skipped" % node.name)
+			continue
 
-# Loads the variables from a save file to save_data.gd
+		# Call the node's save function.
+		var node_data = node.call("save")
+		#print(node_data)
+		# JSON provides a static method to serialized JSON string.
+		var json_string = JSON.stringify(node_data)
+		#print(json_string)
+		# Store the save dictionary as a new line in the save file.
+		save_file.store_line(json_string)
+		
+		
 func load_game():
-	saveData = ResourceLoader.load(save_file)
+	if not FileAccess.file_exists("user://savegame.json"):
+		return # Error! We don't have a save to load.
 
+	# Load the file line by line and process that dictionary to restore
+	# the object it represents.
+	var save_file = FileAccess.open("user://savegame.json", FileAccess.READ)
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+		var json = JSON.new()
 
-# Save the game every 30 seconds
-func _on_save_timer_timeout() -> void:
-	save_game()
+		# Check if there is any error while parsing the JSON string, skip in case of failure.
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
 
+		# Get the data from the JSON object.
+		var node_data = json.data
 
-# Save the game just before closing
-func _on_tree_exiting() -> void:
-	save_game()
+		# Firstly, we need to create the object
+		var new_object = get_node(node_data["filename"])
+		# Now we set the remaining variables.
+		for i in node_data.keys():
+			if i == "filename":
+				continue
+			new_object.set(i, node_data[i])
+		new_object.startup()

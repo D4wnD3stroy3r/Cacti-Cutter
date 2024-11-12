@@ -1,16 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5j6xk1vo7arq"]
+[gd_scene load_steps=7 format=3 uid="uid://b5j6xk1vo7arq"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_2a37j"]
 [ext_resource type="PackedScene" uid="uid://bfn8or1hvnhwk" path="res://Scenes/cactus_target.tscn" id="2_yjw8l"]
-[ext_resource type="Script" path="res://Scenes/cactus_target.gd" id="3_6ibbb"]
 [ext_resource type="PackedScene" uid="uid://cah28bya451lu" path="res://Scenes/cut_particle.tscn" id="3_yhdeu"]
 [ext_resource type="Script" path="res://Scenes/cacti_gardener.gd" id="4_8fat1"]
 [ext_resource type="Script" path="res://Scenes/score.gd" id="4_fwtqs"]
-[ext_resource type="Script" path="res://Scenes/passive_income_timer.gd" id="4_le652"]
-[ext_resource type="Script" path="res://Scenes/save_timer.gd" id="4_y35jq"]
 [ext_resource type="Script" path="res://Scenes/buy_cacti_cutter.gd" id="6_trtvh"]
-[ext_resource type="Script" path="res://Scenes/node.gd" id="10_2uvbq"]
-[ext_resource type="Script" path="res://Scenes/buy_upgrade_2.gd" id="11_rnilo"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_2a37j")
@@ -21,24 +16,21 @@ position = Vector2(576, 322.19)
 scale = Vector2(1.44, 1.22045)
 
 [node name="CactusTarget" parent="." instance=ExtResource("2_yjw8l")]
-script = ExtResource("3_6ibbb")
 
 [node name="CutParticle" parent="." instance=ExtResource("3_yhdeu")]
 visible = false
 
 [node name="SaveTimer" type="Timer" parent="."]
 wait_time = 3.0
-script = ExtResource("4_y35jq")
 
 [node name="PassiveIncomeTimer" type="Timer" parent="."]
-script = ExtResource("4_le652")
 
-[node name="Score" type="Node" parent="." groups=["Persist"]]
+[node name="Score" type="Node" parent="."]
 script = ExtResource("4_fwtqs")
 
 [node name="Upgrades" type="Node" parent="."]
 
-[node name="CactiGardener" type="Node" parent="Upgrades" groups=["Persist", "passive_income"]]
+[node name="CactiGardener" type="Node" parent="Upgrades" groups=["Persist"]]
 script = ExtResource("4_8fat1")
 metadata/level = 0.0
 metadata/cost = 10.0
@@ -50,20 +42,12 @@ offset_left = 896.0
 offset_top = 43.0
 offset_right = 1083.0
 offset_bottom = 120.0
+text = "Buy 1 Cacti Cutter
+Cost: 10"
 script = ExtResource("6_trtvh")
 
-[node name="Upgrade2" type="Node" parent="Upgrades" groups=["Persist", "passive_income"]]
-script = ExtResource("10_2uvbq")
-
-[node name="BuyUpgrade2" type="Button" parent="Upgrades/Upgrade2"]
-offset_left = 897.0
-offset_top = 151.0
-offset_right = 1078.0
-offset_bottom = 242.0
-script = ExtResource("11_rnilo")
-
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="mouse_exited" from="CactusTarget" to="CactusTarget" method="_on_mouse_exited"]
-[connection signal="timeout" from="SaveTimer" to="SaveTimer" method="_on_timeout"]
-[connection signal="timeout" from="PassiveIncomeTimer" to="PassiveIncomeTimer" method="_on_timeout"]
+[connection signal="mouse_exited" from="CactusTarget" to="." method="_on_cactus_target_mouse_exited"]
+[connection signal="timeout" from="SaveTimer" to="." method="_on_save_timer_timeout"]
+[connection signal="timeout" from="PassiveIncomeTimer" to="." method="_on_passive_income_timer_timeout"]
 [connection signal="pressed" from="Upgrades/CactiGardener/BuyCactiCutter" to="Upgrades/CactiGardener/BuyCactiCutter" method="_on_pressed"]
